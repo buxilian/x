@@ -1,6 +1,6 @@
 #!/bin/bash
 # xray一键安装脚本
-# Author: hijk<https://hijk.art>
+
 
 
 RED="\033[31m"      # Error message
@@ -28,6 +28,18 @@ https://www.jueshitangmen.info/
 https://www.zhetian.org/
 http://www.bequgexs.com/
 http://www.tjwl.com/
+http://www.zhuizishu.com/
+http://xs.56dyc.com/
+http://www.ddxsku.com/
+http://www.biqu6.com/
+https://www.wenshulou.cc/
+http://www.55shuba.com/
+http://www.39shubao.com/
+https://www.23xsw.cc/
+https://www.jueshitangmen.info/
+https://www.zhetian.org/
+http://www.bequgexs.com/
+http://www.tjwl.com/
 )
 
 CONFIG_FILE="/usr/local/etc/xray/config.json"
@@ -37,7 +49,7 @@ V6_PROXY=""
 IP=`curl -sL -4 ip.sb`
 if [[ "$?" != "0" ]]; then
     IP=`curl -sL -6 ip.sb`
-    V6_PROXY="https://gh.hijk.art/"
+    V6_PROXY="http://ipget.net/"
 fi
 
 BT="false"
@@ -281,8 +293,10 @@ getData() {
             CERT_FILE="/usr/local/etc/xray/${DOMAIN}.pem"
             KEY_FILE="/usr/local/etc/xray/${DOMAIN}.key"
         else
-            resolve=`curl -sL https://hijk.art/hostip.php?d=${DOMAIN}`
-            res=`echo -n ${resolve} | grep ${IP}`
+            #resolve=`curl -sL https://hijk.art/hostip.php?d=${DOMAIN}`
+            #res=`echo -n ${resolve} | grep ${IP}`
+	    resolve=`curl -sm8 ipget.net/?ip=${DOMAIN}`
+	    res=`echo -n ${resolve} | grep ${IP}`
             if [[ -z "${res}" ]]; then
                 colorEcho ${BLUE}  "${DOMAIN} 解析结果：${resolve}"
                 colorEcho ${RED}  " 域名未解析到当前服务器IP(${IP})!"
@@ -405,12 +419,12 @@ getData() {
         colorEcho $BLUE " 请选择伪装站类型:"
         echo "   1) 静态网站(位于/usr/share/nginx/html)"
         echo "   2) 小说站(随机选择)"
-        echo "   3) 美女站(https://imeizi.me)"
-        echo "   4) 高清壁纸站(https://bing.imeizi.me)"
+        echo "   3) 美女站(https://38i8.com)"
+        echo "   4) 高清壁纸站(https://wallhaven.cc)"
         echo "   5) 自定义反代站点(需以http或者https开头)"
         read -p "  请选择伪装网站类型[默认:高清壁纸站]" answer
         if [[ -z "$answer" ]]; then
-            PROXY_URL="https://bing.imeizi.me"
+            PROXY_URL="https://wallhaven.cc"
         else
             case $answer in
             1)
@@ -433,10 +447,10 @@ getData() {
                 done
                 ;;
             3)
-                PROXY_URL="https://imeizi.me"
+                PROXY_URL="https://38i8.com"
                 ;;
             4)
-                PROXY_URL="https://bing.imeizi.me"
+                PROXY_URL="https://wallhaven.cc"
                 ;;
             5)
                 read -p " 请输入反代站点(以http或者https开头)：" PROXY_URL
